@@ -1,0 +1,25 @@
+\doxysection{A Class Reference}
+\hypertarget{class_a}{}\label{class_a}\index{A@{A}}
+
+
+Collaboration diagram for A\+:
+% FIG 0
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_a_a3ccba40d430af99baf264846dc6ed5e4}{Function1}} (int left, int right)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_a_a3ccba40d430af99baf264846dc6ed5e4}\label{class_a_a3ccba40d430af99baf264846dc6ed5e4} 
+\index{A@{A}!Function1@{Function1}}
+\index{Function1@{Function1}!A@{A}}
+\doxysubsubsection{\texorpdfstring{Function1()}{Function1()}}
+{\footnotesize\ttfamily int A\+::\+Function1 (\begin{DoxyParamCaption}\item[{int}]{left,  }\item[{int}]{right }\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{main_8cpp}{main.\+cpp}}\end{DoxyCompactItemize}
