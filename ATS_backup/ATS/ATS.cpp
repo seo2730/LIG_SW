@@ -1,8 +1,9 @@
-#include<iostream>
-#include<math.h>
+#include "UdpSocket.h"
+#include <math.h>
+#include <string>
 
 // UDP 통신 헤더 파일
-#include "UdpSocket.h"
+
 
 struct Vector2 {
 	double x;
@@ -11,6 +12,8 @@ struct Vector2 {
 
 class ATS {
 public:
+	// UDP 설정 변수
+	UdpSock udpsock;
 	// 초기 위치
 	Vector2 initial_pose;
 	// 목표 위치
@@ -24,6 +27,54 @@ public:
 	double speed;
 	// 제어 주기?
 	double dt;
+
+	// 통신 설정
+	void set_UDP() {
+		// winsock을 시작하겠다? 이런 느낌
+		if (WSAStartup(MAKEWORD(2, 2), &udpsock.wsadata) != 0)		
+		{
+			cout << "winsock 초기화 실패!" << endl;
+		}
+
+		// SOCK_DGRAM - UDP protocol, 결국 이부분은 똑같이 사용
+		udpsock.s_sock = socket(AF_INET, SOCK_DGRAM, 0);		
+		// ip 127.0.0.1로 설정 - 고정 부분
+		udpsock.send_addr.sin_addr.s_addr = inet_addr("127.0.0.1");		
+		//고정
+		udpsock.send_addr.sin_family = AF_INET;		
+		// port 1000으로 설정
+		udpsock.send_addr.sin_port = htons(1000);	
+
+		// bind 부분 / 건드릴 필요 x
+		if (bind(udpsock.s_sock, (sockaddr*)&udpsock.send_addr, udpsock.send_size) == SOCKET_ERROR)
+		{
+			cout << "bind 실패!" << endl;
+			return;
+		}
+	}
+
+	// 데이터 송신
+	void send_data(char pose) {
+		memset(udpsock.Buffer, 0x00, BUFFER_SIZE);	// 송신 데이터 메모리 초기화
+		////////// send //////////
+		*udpsock.Buffer = pose; // 송신 데이터
+		// sendto - 송신 소켓, 송신 데이터, ip, port 필요함
+		sendto(udpsock.s_sock, udpsock.Buffer, BUFFER_SIZE, 0, (sockaddr*)&udpsock.send_addr, udpsock.send_size);
+
+	}
+	// 데이터 수신
+	void recv_data() {
+		memset(udpsock.Buffer, 0x00, BUFFER_SIZE);
+		// recvfrom - 송신된 곳의 소켓 정보 필요함, 따라서 s_sock의 정보가 들어감 / 5번째에 (sockaddr*)&udpsock.recv_addr 이 부분에 송신된 소켓의 정보가 복사됨
+		recvfrom(udpsock.s_sock, udpsock.Buffer, BUFFER_SIZE, 0, (sockaddr*)&udpsock.recv_addr, &udpsock.recv_size);
+	}
+
+	// 데이터 변환
+	void double_to_char(Vector2 data) {
+		char
+		string data = to_string(data.x) + "," + to_string(data.y);
+
+	}
 
 	// 운용통제기에서 설정한 시나리오
 	void Get_scenario(Vector2 start_pose, Vector2 end_pose, double _speed) {

@@ -1,4 +1,3 @@
-﻿  UdpSocket.cpp
-C:\Users\User\Documents\카카오톡 받은 파일\UdpSocket.cpp(15,38): error C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-  ATS.cpp
-  코드를 생성하고 있습니다...
+﻿  ATS.cpp
+C:\Users\User\Desktop\SW 입문교육\src\ATS_backup\ATS\ATS.cpp(42,39): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  ATS.vcxproj -> C:\Users\User\Desktop\SW 입문교육\src\ATS_backup\x64\Debug\ATS.exe
