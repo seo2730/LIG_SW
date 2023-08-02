@@ -1,19 +1,4 @@
-#include<iostream>
+﻿#include "pch.h"
 
-struct Position {
-	float x;
-	float y;
-};
+#include "ATS.h"
 
-class ATS {
-public:
-	Position initial_pose;
-	Position target_pose;
-
-
-};
-
-int main()
-{
-
-}
