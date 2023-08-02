@@ -141,6 +141,9 @@
   <ItemGroup>
     <ClCompile Include="ATS.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\Documents\카카오톡 받은 파일\UdpSocket.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

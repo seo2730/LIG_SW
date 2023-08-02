@@ -1,6 +1,9 @@
 #include<iostream>
 #include<math.h>
 
+// UDP 통신 헤더 파일
+#include "UdpSocket.h"
+
 struct Vector2 {
 	double x;
 	double y;

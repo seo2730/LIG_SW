@@ -1,7 +1,3 @@
-﻿  pch.cpp
-  AssemblyInfo.cpp
-  ATS.cpp
-  코드를 생성하고 있습니다...
-  .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
+﻿  ATS.cpp
   AssemblyInfo.obj : MSIL 모듈이 발견되었습니다. MSIL에 증분 링크를 사용할 수 없습니다. 전체 링크를 수행하고 있습니다.
   ATS.vcxproj -> C:\Users\User\Desktop\SW 입문교육\src\ATS\Debug\ATS.dll
