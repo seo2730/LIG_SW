@@ -25,10 +25,9 @@ public:
 	// 운용통제기에서 설정한 속력
 	double speed;
 	// 제어 주기?
-	double dt;
+	double dt=0.1;
 
-	char pose[BUFFER_SIZE];
-	char SRCip[BUFFER_SIZE]; // 출력을 위한 char
+	char send_buffer_data[BUFFER_SIZE];
 
 	// 통신 설정
 	void set_UDP() {
@@ -60,7 +59,7 @@ public:
 		memset(udpsock.Buffer, 0x00, BUFFER_SIZE);	// 송신 데이터 메모리 초기화
 		////////// send //////////
 		//*udpsock.Buffer = *pose; // 송신 데이터
-		std::memcpy(&udpsock.Buffer, &pose, BUFFER_SIZE);
+		std::memcpy(&udpsock.Buffer, &send_buffer_data, BUFFER_SIZE);
 		// sendto - 송신 소켓, 송신 데이터, ip, port 필요함
 		sendto(udpsock.s_sock, udpsock.Buffer, BUFFER_SIZE, 0, (sockaddr*)&udpsock.send_addr, udpsock.send_size);
 		std::cout << "송신 데이터 : " << udpsock.Buffer << endl;
@@ -72,15 +71,18 @@ public:
 			std::cout << "데이터 초기화 됨" << endl;
 		// recvfrom - 송신된 곳의 소켓 정보 필요함, 따라서 s_sock의 정보가 들어감 / 5번째에 (sockaddr*)&udpsock.recv_addr 이 부분에 송신된 소켓의 정보가 복사됨
 		recvfrom(udpsock.s_sock, udpsock.Buffer, BUFFER_SIZE, 0, (sockaddr*)&udpsock.recv_addr, &udpsock.recv_size);
-		
-		memset(SRCip, 0x00, BUFFER_SIZE);
 	}
 
 	// 데이터 변환
+	// 현재 위치 변환
 	void double_to_char(Vector2 data) {
-		string send_data = to_string(data.x) + "," + to_string(data.y);
-		strcpy(pose, send_data.c_str());
+		string convert_data = to_string(data.x) + "," + to_string(data.y);
+		strcpy(send_buffer_data, convert_data.c_str());
 	}
+	// 초기 위치, 목적 위치, 속력 변환
+	/*void char_to_double(char recv_data) {
+		return;
+	}*/
 
 	// 운용통제기에서 설정한 시나리오
 	void Get_scenario(Vector2 start_pose, Vector2 end_pose, double _speed) {
@@ -110,8 +112,8 @@ public:
 
 	// 기동 수행하는 함수
 	void move_to_target() {
-		current_pose.x += current_pose.x + velocity.x * dt;
-		current_pose.y += current_pose.y + velocity.y * dt;
+		current_pose.x += velocity.x * dt;
+		current_pose.y += velocity.y * dt;
 	}
 
 };
@@ -119,12 +121,16 @@ public:
 int main()
 {
 	ATS ats;
-	Vector2 data = { 0.1,0.2 };
-	ats.double_to_char(data);
+	Vector2 initial_pose = { 0.0, 0.0 };
+	Vector2 target_pose = { 10.0, 5.0 };
+	double speed = 0.5;
 
-	ats.set_UDP();
-
-	ats.send_data();
-	ats.recv_data();
-	std::cout << "수신 데이터 Buffer : " << ats.udpsock.Buffer << endl;
+	ats.Get_scenario(initial_pose, target_pose, speed);
+	ats.speed_to_velocity();
+	std::cout << ats.velocity.x << " , " << ats.velocity.y << endl;
+	while (!((ats.target_pose.x <= ats.current_pose.x) && (ats.target_pose.y <= ats.current_pose.y)))
+	{
+		ats.move_to_target();
+		std::cout << ats.current_pose.x << " , " << ats.current_pose.y << endl;
+	}
 }
