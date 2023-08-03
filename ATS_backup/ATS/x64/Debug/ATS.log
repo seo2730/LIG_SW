@@ -1,3 +1,4 @@
 ﻿  ATS.cpp
-C:\Users\User\Desktop\SW 입문교육\src\ATS_backup\ATS\ATS.cpp(42,39): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+C:\Users\User\Desktop\SW 입문교육\src\ATS_backup\ATS\ATS.cpp(44,39): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+C:\Users\User\Desktop\SW 입문교육\src\ATS_backup\ATS\ATS.cpp(82,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   ATS.vcxproj -> C:\Users\User\Desktop\SW 입문교육\src\ATS_backup\x64\Debug\ATS.exe

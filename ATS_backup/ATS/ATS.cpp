@@ -1,10 +1,9 @@
+// UDP 통신 헤더 파일
 #include "UdpSocket.h"
 #include <math.h>
 #include <string>
 
-// UDP 통신 헤더 파일
-
-
+// x,y 벡터
 struct Vector2 {
 	double x;
 	double y;
@@ -27,6 +26,9 @@ public:
 	double speed;
 	// 제어 주기?
 	double dt;
+
+	char pose[BUFFER_SIZE];
+	char SRCip[BUFFER_SIZE]; // 출력을 위한 char
 
 	// 통신 설정
 	void set_UDP() {
@@ -54,26 +56,30 @@ public:
 	}
 
 	// 데이터 송신
-	void send_data(char pose) {
+	void send_data() {
 		memset(udpsock.Buffer, 0x00, BUFFER_SIZE);	// 송신 데이터 메모리 초기화
 		////////// send //////////
-		*udpsock.Buffer = pose; // 송신 데이터
+		//*udpsock.Buffer = *pose; // 송신 데이터
+		std::memcpy(&udpsock.Buffer, &pose, BUFFER_SIZE);
 		// sendto - 송신 소켓, 송신 데이터, ip, port 필요함
 		sendto(udpsock.s_sock, udpsock.Buffer, BUFFER_SIZE, 0, (sockaddr*)&udpsock.send_addr, udpsock.send_size);
-
+		std::cout << "송신 데이터 : " << udpsock.Buffer << endl;
 	}
 	// 데이터 수신
 	void recv_data() {
 		memset(udpsock.Buffer, 0x00, BUFFER_SIZE);
+		if (strlen(udpsock.Buffer) == 0)
+			std::cout << "데이터 초기화 됨" << endl;
 		// recvfrom - 송신된 곳의 소켓 정보 필요함, 따라서 s_sock의 정보가 들어감 / 5번째에 (sockaddr*)&udpsock.recv_addr 이 부분에 송신된 소켓의 정보가 복사됨
 		recvfrom(udpsock.s_sock, udpsock.Buffer, BUFFER_SIZE, 0, (sockaddr*)&udpsock.recv_addr, &udpsock.recv_size);
+		
+		memset(SRCip, 0x00, BUFFER_SIZE);
 	}
 
 	// 데이터 변환
 	void double_to_char(Vector2 data) {
-		char
-		string data = to_string(data.x) + "," + to_string(data.y);
-
+		string send_data = to_string(data.x) + "," + to_string(data.y);
+		strcpy(pose, send_data.c_str());
 	}
 
 	// 운용통제기에서 설정한 시나리오
@@ -112,5 +118,13 @@ public:
 
 int main()
 {
+	ATS ats;
+	Vector2 data = { 0.1,0.2 };
+	ats.double_to_char(data);
 
+	ats.set_UDP();
+
+	ats.send_data();
+	ats.recv_data();
+	std::cout << "수신 데이터 Buffer : " << ats.udpsock.Buffer << endl;
 }
