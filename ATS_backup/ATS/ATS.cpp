@@ -34,8 +34,8 @@ public:
 	// 제어 주기?
 	double dt=0.1;
 
-	Initial_Scenario* send_scenario_data;
-	Initial_Scenario* recv_scenario_data;
+	Initial_Scenario send_scenario_data;
+	Initial_Scenario recv_scenario_data;
 
 	Vector2 *send_current_pose;
 	Vector2 *recv_current_pose;
@@ -70,7 +70,7 @@ public:
 	void send_scenario() {
 		//// 구조체 통신 ////
 		memset(udpsock.Buffer, 0x00, BUFFER_SIZE);
-		memcpy(udpsock.Buffer, send_scenario_data, BUFFER_SIZE);
+		memcpy(udpsock.Buffer, &send_scenario_data, BUFFER_SIZE);
 		sendto(udpsock.s_sock, udpsock.Buffer, BUFFER_SIZE, 0, (sockaddr*)&udpsock.send_addr, udpsock.send_size);
 		std::cout << "시나리오 배포" << endl;
 		/////////////////////
@@ -82,7 +82,10 @@ public:
 			std::cout << "버퍼 데이터 초기화 됨" << endl;
 		// recvfrom - 송신된 곳의 소켓 정보 필요함, 따라서 s_sock의 정보가 들어감 / 5번째에 (sockaddr*)&udpsock.recv_addr 이 부분에 송신된 소켓의 정보가 복사됨
 		recvfrom(udpsock.s_sock, udpsock.Buffer, BUFFER_SIZE, 0, (sockaddr*)&udpsock.recv_addr, &udpsock.recv_size);
-		recv_scenario_data = (Initial_Scenario*)udpsock.Buffer;
+
+		//byte array -> 구조체
+		memcpy(&recv_scenario_data, udpsock.Buffer, BUFFER_SIZE);
+	
 		std::cout << "시나리오 수신완료" << endl;
 	}
 
@@ -121,11 +124,11 @@ public:
 	//}
 
 	// 운용통제기에서 설정한 시나리오
-	void Get_scenario(Initial_Scenario *scenario) {
-		initial_pose = scenario->initial_pose;
+	void Get_scenario(Initial_Scenario scenario) {
+		initial_pose = scenario.initial_pose;
 		current_pose = initial_pose;
-		target_pose = scenario->target_pose;
-		speed = scenario->speed;
+		target_pose = scenario.target_pose;
+		speed = scenario.speed;
 		speed_to_velocity();
 		std::cout << "공중위협모의기 시나리오 설정 완료" << endl;
 	}
@@ -156,10 +159,10 @@ int main()
 	// 운용이 보낸다는 가정
 	ATS ats;
 	Initial_Scenario scenario;
-	scenario.initial_pose = {0.0, 0.0};
-	scenario.target_pose = { 10.0, 3.0 };
+	scenario.initial_pose = {10.0, 5.0};
+	scenario.target_pose = { 0.0, 5.0 };
 	scenario.speed = 0.9;
-	ats.send_scenario_data = &scenario;
+	ats.send_scenario_data = scenario;
 
 	ats.set_UDP();
 
@@ -169,7 +172,7 @@ int main()
 	ats.Get_scenario(ats.recv_scenario_data);
 
 	std::cout << "공중위협모의기 시작" << endl;
-	while (!((ats.target_pose.x <= ats.current_pose.x) && (ats.target_pose.y <= ats.current_pose.y)))
+	while (!((abs(ats.target_pose.x - ats.current_pose.x)<=1) && (abs(ats.target_pose.y - ats.current_pose.y)<=1)))
 	{
 		ats.move_to_target();
 		std::cout << ats.current_pose.x << " , " << ats.current_pose.y << endl;
