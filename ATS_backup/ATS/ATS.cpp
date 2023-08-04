@@ -89,40 +89,6 @@ public:
 		std::cout << "시나리오 수신완료" << endl;
 	}
 
-	// 운용통제기에게 현 위치 송신해주는 함수
-	//void send_current_position() {
-	//	//// 구조체 통신 ////
-	//	memset(udpsock.Buffer, 0x00, BUFFER_SIZE);
-	//	memcpy(udpsock.Buffer, send_current_pose, BUFFER_SIZE);
-	//	//std::cout << "송신 데이터 char 형 Buffer : " << udpsock.Buffer << endl;
-	//	//Vector2* test;
-	//	//test = (Vector2*)udpsock.Buffer;
-	//	//std::cout << "송신 데이터 Vector2 형 Buffer : " << test->x << endl;
-	//	sendto(udpsock.r_sock, udpsock.Buffer, BUFFER_SIZE, 0, (sockaddr*)&udpsock.send_addr, udpsock.send_size);
-	//	std::cout << "레이다모의기 데이터 송신 완료" << endl;
-	//	/////////////////////
-	//}
-	//// 위치 데이터 수신
-	//void recv_current_position() {
-	//	memset(udpsock.Buffer, 0x00, BUFFER_SIZE);
-	//	if (strlen(udpsock.Buffer) == 0)
-	//		std::cout << "데이터 초기화 됨" << endl;
-	//	// recvfrom - 송신된 곳의 소켓 정보 필요함, 따라서 s_sock의 정보가 들어감 / 5번째에 (sockaddr*)&udpsock.recv_addr 이 부분에 송신된 소켓의 정보가 복사됨
-	//	recvfrom(udpsock.s_sock, udpsock.Buffer, BUFFER_SIZE, 0, (sockaddr*)&udpsock.recv_addr, &udpsock.recv_size);
-	//	recv_current_pose = (Vector2*)udpsock.Buffer;
-	//}
-
-	// 데이터 변환
-	// 현재 위치 변환
-	//void double_to_char(Vector2 data) {
-	//	string convert_data = to_string(data.x) + "," + to_string(data.y);
-	//	//strcpy(send_buffer_data, convert_data.c_str());
-	//}
-	//// 초기 위치, 목적 위치, 속력 변환
-	//void char_to_double(char recv_data) {
-	//	return;
-	//}
-
 	// 운용통제기에서 설정한 시나리오
 	void Get_scenario(Initial_Scenario scenario) {
 		initial_pose = scenario.initial_pose;

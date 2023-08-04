@@ -1,0 +1,71 @@
+\doxysection{ATS Class Reference}
+\hypertarget{class_a_t_s}{}\label{class_a_t_s}\index{ATS@{ATS}}
+
+
+Collaboration diagram for ATS\+:
+% FIG 0
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_a_t_s_af2e573fd6cea7321813126c32ca402f7}\label{class_a_t_s_af2e573fd6cea7321813126c32ca402f7} 
+void {\bfseries set\+\_\+\+UDP} ()
+\item 
+\Hypertarget{class_a_t_s_ab5653a2c59975556f8b800510b327989}\label{class_a_t_s_ab5653a2c59975556f8b800510b327989} 
+void {\bfseries send\+\_\+scenario} ()
+\item 
+\Hypertarget{class_a_t_s_a252db491fe1210adbda7898038ec5c01}\label{class_a_t_s_a252db491fe1210adbda7898038ec5c01} 
+void {\bfseries recv\+\_\+scenario} ()
+\item 
+\Hypertarget{class_a_t_s_af363f0e9306ba82c36a01b478ef27082}\label{class_a_t_s_af363f0e9306ba82c36a01b478ef27082} 
+void {\bfseries Get\+\_\+scenario} (\mbox{\hyperlink{struct_initial___scenario}{Initial\+\_\+\+Scenario}} scenario)
+\item 
+\Hypertarget{class_a_t_s_a350f0b67879d15cf97ac9ab733c64f34}\label{class_a_t_s_a350f0b67879d15cf97ac9ab733c64f34} 
+void {\bfseries speed\+\_\+to\+\_\+velocity} ()
+\item 
+\Hypertarget{class_a_t_s_a02b3ca98ff350d68d22858810e07b977}\label{class_a_t_s_a02b3ca98ff350d68d22858810e07b977} 
+void {\bfseries move\+\_\+to\+\_\+target} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_a_t_s_a22e918af2969f3f21f97aacf728e3365}\label{class_a_t_s_a22e918af2969f3f21f97aacf728e3365} 
+\mbox{\hyperlink{class_udp_sock}{Udp\+Sock}} {\bfseries udpsock}
+\item 
+\Hypertarget{class_a_t_s_aca355741aa3e2991bc77c99d9057cead}\label{class_a_t_s_aca355741aa3e2991bc77c99d9057cead} 
+\mbox{\hyperlink{struct_vector2}{Vector2}} {\bfseries initial\+\_\+pose}
+\item 
+\Hypertarget{class_a_t_s_ae2f11a5cba31f322f48af63898a051ba}\label{class_a_t_s_ae2f11a5cba31f322f48af63898a051ba} 
+\mbox{\hyperlink{struct_vector2}{Vector2}} {\bfseries target\+\_\+pose}
+\item 
+\Hypertarget{class_a_t_s_a33a952ba52eb95b31a7ee0f16dec9e12}\label{class_a_t_s_a33a952ba52eb95b31a7ee0f16dec9e12} 
+\mbox{\hyperlink{struct_vector2}{Vector2}} {\bfseries current\+\_\+pose}
+\item 
+\Hypertarget{class_a_t_s_a27a8f3032b6edcccab69c322416aa29a}\label{class_a_t_s_a27a8f3032b6edcccab69c322416aa29a} 
+\mbox{\hyperlink{struct_vector2}{Vector2}} {\bfseries velocity}
+\item 
+\Hypertarget{class_a_t_s_aa4bd85e265ab0092574aaa55765f441b}\label{class_a_t_s_aa4bd85e265ab0092574aaa55765f441b} 
+double {\bfseries speed}
+\item 
+\Hypertarget{class_a_t_s_a1a1c914bc3d14997b7a92cae2f21da27}\label{class_a_t_s_a1a1c914bc3d14997b7a92cae2f21da27} 
+double {\bfseries dt} =0.\+1
+\item 
+\Hypertarget{class_a_t_s_a63ee9cde2fb7ac4931b8dc9fb2c63da2}\label{class_a_t_s_a63ee9cde2fb7ac4931b8dc9fb2c63da2} 
+\mbox{\hyperlink{struct_initial___scenario}{Initial\+\_\+\+Scenario}} {\bfseries send\+\_\+scenario\+\_\+data}
+\item 
+\Hypertarget{class_a_t_s_ad8466809e4a29daa9f8c09149ae968e0}\label{class_a_t_s_ad8466809e4a29daa9f8c09149ae968e0} 
+\mbox{\hyperlink{struct_initial___scenario}{Initial\+\_\+\+Scenario}} {\bfseries recv\+\_\+scenario\+\_\+data}
+\item 
+\Hypertarget{class_a_t_s_a4f1ae377a58128343392de8a2444b437}\label{class_a_t_s_a4f1ae377a58128343392de8a2444b437} 
+\mbox{\hyperlink{struct_vector2}{Vector2}} \texorpdfstring{$\ast$}{*} {\bfseries send\+\_\+current\+\_\+pose}
+\item 
+\Hypertarget{class_a_t_s_ada8cd24e152923f1d6faf5abf37af10c}\label{class_a_t_s_ada8cd24e152923f1d6faf5abf37af10c} 
+\mbox{\hyperlink{struct_vector2}{Vector2}} \texorpdfstring{$\ast$}{*} {\bfseries recv\+\_\+current\+\_\+pose}
+\item 
+\Hypertarget{class_a_t_s_a6ca844521804a735d09db9872e790843}\label{class_a_t_s_a6ca844521804a735d09db9872e790843} 
+char {\bfseries message} \mbox{[}BUFFER\+\_\+\+SIZE\mbox{]}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+ATS.\+cpp\end{DoxyCompactItemize}

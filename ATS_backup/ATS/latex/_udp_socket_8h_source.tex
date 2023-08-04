@@ -1,0 +1,26 @@
+\doxysection{Udp\+Socket.\+h}
+\hypertarget{_udp_socket_8h_source}{}\label{_udp_socket_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <WinSock2.h>}\ \ \ \ \ \ \ \textcolor{comment}{//\ 소켓 쓰는 헤더}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ comment\ (lib,"{}ws2\_32.lib"{}})\ \ \ \ \ \ \textcolor{comment}{//\ 소켓 쓰는 헤더}}
+\DoxyCodeLine{00005\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ BUFFER\_SIZE\ 256\ \ \ \ \ }\textcolor{comment}{//\ 데이터\ 사이즈\ }}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_udp_sock}{UdpSock}}}
+\DoxyCodeLine{00010\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00012\ \ \ \ \ WSADATA\ wsadata;\ \ \ \ \textcolor{comment}{//\ 뭔지\ 모르는데\ 있어야함}}
+\DoxyCodeLine{00013\ \ \ \ \ SOCKET\ s\_sock;\ \ \ \ \ \ \textcolor{comment}{//\ send\ 소켓}}
+\DoxyCodeLine{00014\ \ \ \ \ SOCKET\ r\_sock;\ \ \ \ \ \ \textcolor{comment}{//\ recv\ 소켓}}
+\DoxyCodeLine{00015\ \ \ \ \ SOCKADDR\_IN\ send\_addr\ =\ \{\};\ \ \ \ \ \textcolor{comment}{//\ 소켓 정보\ 들어가는 곳 -\/ send\ 소켓 정보}}
+\DoxyCodeLine{00016\ \ \ \ \ SOCKADDR\_IN\ recv\_addr\ =\ \{\};\ \ \ \ \ \textcolor{comment}{//\ 소켓 정보\ 들어가는 곳 -\/ recv\ 소켓 정보}}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{int}\ send\_size\ =\ \textcolor{keyword}{sizeof}(send\_addr);\ \ \ \ \ \ \textcolor{comment}{//\ \ \ 소켓 정보\ 크기}}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{int}\ recv\_size\ =\ \textcolor{keyword}{sizeof}(recv\_addr);\ \ \ \ \ \ \textcolor{comment}{//\ \ \ 소켓 정보\ 크기}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{char}\ Buffer[BUFFER\_SIZE];\ \ \ \ \ \ \ \textcolor{comment}{//\ 송신,\ 수신 데이터\ -\/\ 실제론 송신 char,\ 수신 char\ 따로 만들어야함}}
+\DoxyCodeLine{00021\ \};}
+
+\end{DoxyCode}
