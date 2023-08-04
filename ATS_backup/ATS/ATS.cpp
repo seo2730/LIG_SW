@@ -52,7 +52,7 @@ public:
 		// SOCK_DGRAM - UDP protocol, 결국 이부분은 똑같이 사용
 		udpsock.s_sock = socket(AF_INET, SOCK_DGRAM, 0);		
 		// ip 127.0.0.1로 설정 - 고정 부분
-		udpsock.send_addr.sin_addr.s_addr = inet_addr("127.0.0.1");		
+		udpsock.send_addr.sin_addr.s_addr = inet_addr("172.16.12.220"); //172.16.12.220, 127.0.0.1
 		//고정
 		udpsock.send_addr.sin_family = AF_INET;		
 		// port 1000으로 설정
@@ -123,7 +123,7 @@ public:
 int main()
 {
 	// 운용이 보낸다는 가정
-	ATS ats;
+	/*ATS ats;
 	Initial_Scenario scenario;
 	scenario.initial_pose = {10.0, 5.0};
 	scenario.target_pose = { 0.0, 5.0 };
@@ -142,7 +142,38 @@ int main()
 	{
 		ats.move_to_target();
 		std::cout << ats.current_pose.x << " , " << ats.current_pose.y << endl;
+	}*/
+
+	WSADATA wsadata;   // 뭔지 모르는데 있어야함
+	SOCKET s_sock;
+	SOCKET r_sock;   // recv 소켓
+	SOCKADDR_IN send_addr = {};      // 소켓 정보 들어가는 곳 - send 소켓 정보
+	SOCKADDR_IN recv_addr = {};      // 소켓 정보 들어가는 곳 - recv 소켓 정보
+	int send_size = sizeof(send_addr);      //    소켓 정보 크기
+	int recv_size = sizeof(recv_addr);      //    소켓 정보 크기
+
+	char Buffer[256];      // 송신, 수신 데이터 - 실제론 송신 char, 수신 char 따로 만들어야함
+
+	WSAStartup(MAKEWORD(2, 2), &wsadata);
+	r_sock = socket(AF_INET, SOCK_DGRAM, 0);      // SOCK_DGRAM - UDP protocol, 결국 이부분은 똑같이 사용
+	recv_addr.sin_addr.s_addr = inet_addr("172.16.12.220");      //    ip 127.0.0.1로 설정 - 고정 부분
+	recv_addr.sin_family = AF_INET;      //    고정
+	recv_addr.sin_port = htons(5000);      // port 1000으로 설정
+	bind(r_sock, (sockaddr*)&recv_addr, recv_size);
+
+	while(1)
+	{
+		memset(Buffer, 0x00, 256);
+		// recvfrom - 송신된 곳의 소켓 정보 필요함, 따라서 s_sock의 정보가 들어감 / 5번째에 (sockaddr*)&udpsock.recv_addr 이 부분에 송신된 소켓의 정보가 복사됨
+		recvfrom(r_sock, Buffer, 256, 0, (sockaddr*)&send_addr, &send_size);
+
+
+		char SRCip[256]; // 출력을 위한 char
+		memset(SRCip, 0x00, 256);
+
+		cout << Buffer << endl; // 출력 부분
 	}
+	
 
 	return 0;
 }

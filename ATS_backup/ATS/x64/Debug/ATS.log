@@ -1,3 +1,1 @@
-﻿  ATS.cpp
-C:\Users\User\Desktop\SW 입문교육\src\ATS_backup\ATS\ATS.cpp(55,39): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-  ATS.vcxproj -> C:\Users\User\Desktop\SW 입문교육\src\ATS_backup\x64\Debug\ATS.exe
+﻿  ATS.vcxproj -> C:\Users\User\OneDrive\SW 입문교육\src\ATS_backup\x64\Debug\ATS.exe
